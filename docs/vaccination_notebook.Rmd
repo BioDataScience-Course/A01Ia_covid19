@@ -9,25 +9,25 @@ output:
     highlight: tango
 ---
 
-<!--# Ceci est un commentaire. Il n'apparait pas dans votre rapport final. Observez la structure balisée par --- ci-dessus. C'est une zone particulière qui renseigne les informations de base du document telles que le titre, l'auteur, la date ou encore le format de sortie du document. Cette zone s'appelle un entête YAML. -->
+<!--# Ceci est un commentaire. Il n'apparait pas dans votre rapport final. Observez la structure balisée par des '---' ci-dessus. C'est une zone particulière qui renseigne les informations de base du document telles que le titre, l'auteur, la date ou encore le format de sortie du document. Cette zone s'appelle un entête YAML. -->
 
-<!--% Ceci est une consigne. Remplacez author: "___" par votre nom. ex: author: "Engels Guyliann". Attention, l'entête YAML est très sensible aux espaces et aux guillemets..-->
+<!--% Ceci est une consigne. Remplacez author: "___" par votre nom. ex: author: "Engels Guyliann". Attention, l'entête YAML est très sensible aux espaces et aux guillemets. -->
 
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE, message = FALSE)
 # Chargement de packages utiles ----
 SciViews::R(lang = "fr")
 library(lubridate)
-# importation des données en local ----
+# Importation des données en local ----
 vaccine <- read("../data/be_vaccines_covid.rds")
 last_update <- paste0("Mis à jour le " , attr(vaccine, "downloaded"))
 ```
 
-<!--# Observez les instructions ci-dessus, le code est placé dans une zone particulière que l'on nomme un chunk. Il n'est pas utile de comprendre les instructions. Intéressez-vous plutôt à la succession de zones de texte et aux zones de codes..-->
+<!--# Observez les instructions ci-dessus, le code est placé dans une zone particulière que l'on nomme un chunk. Il n'est pas nécessaire de comprendre ces instructions pour l'instant, mais essayer quand même de deviner ce qu'elles font. Vous apprendrez plus tard à écrire ces instructions vous-mêmes. Concentrez-vous sur la succession des zones de texte et des chunks (zones de code).-->
 
 # Introduction
 
-Ce carnet de notes s'intéresse à la campagne de vaccination qui a débuté le `r min(vaccine$date)` afin de lutter contre le COVID 19.
+Ce carnet de notes s'intéresse à la campagne de vaccination contre le COVID 19 en Belgique qui a débuté le `r min(vaccine$date)`.
 
 <!--# Dans le paragraphe ci-dessus, vous pouvez observer que du code R a été intégré au sein du texte. Il s'agit d'une forme de chunk raccourci qui est prévu pour être intégré dans des paragraphes. Cette technique est très utile pour ajouter des éléments contextuels aux données. -->
 
@@ -35,18 +35,18 @@ Ce carnet de notes s'intéresse à la campagne de vaccination qui a débuté le 
 
 <!--# Vous pouvez observer ci-dessus la syntaxe employée afin d'intégrer une image dans un document R Markdown.-->
 
-*Les analyses proposées ci-dessous utilisent les données datant du `r attr(vaccine, "downloaded")`.*
+*Les analyses ci-dessous utilisent les données datant du `r attr(vaccine, "downloaded")`.*
 
 # Analyses
 
-En Belgique, `r fsum(vaccine$count)` doses de vaccin ont été administrées.
+En Belgique, `r fsum(vaccine$count)` doses de vaccins COVID 19 ont été administrées.
 
 ```{r week}
 vaccine %>.%
   smutate(., week = floor_date(date,"week", week_start = 1)) %>.%
   sgroup_by(., week) |> ssummarise(tot = fsum(count)) %>.%
   chart(data = ., tot ~ week) +
-  geom_point() +
+    geom_point() +
     geom_line() +
     labs(y = "Nombre de doses administrées par semaine", x = "Date")
 ```
@@ -63,9 +63,9 @@ nb_brand_dose %>.%
 nb_brand
 ```
 
-Le tableau ci-dessous indique la répartition des vaccins administrés.
+Ce tableau indique la répartition des vaccins administrés.
 
-<!--% Proposez un élément supplémentaire, sous forme de liste des résultats relatifs à la répartition des vaccins administrés.-->
+<!--% Interprétez ce tableau : proposez un élément supplémentaire en dessous du premier dans la liste ci-dessous.-->
 
 -   le vaccin le plus administré est le `r ffirst(nb_brand$brand)`.
 
@@ -79,9 +79,9 @@ vaccine %>.%
   replace_NA(., value = 0)
 ```
 
-Le tableau de contingence ci-dessus propose la répartition du nombre de doses de vaccins administrés en Belgique en fonction de la dose administrée. Ces doses sont nommées A, B, C, E, E2, E3. La dose A et B concerne les vaccins qui devaient être pris en 2 injections pour être efficace alors que la dose C correspond au vaccin qui n'en nécessitait qu'une seule. Les doses E, E2 et E3 sont les doses de rappels.
+Le tableau ci-dessus montre la répartition du nombre de doses de vaccins administrées en Belgique en fonction du type de dose (A, B, C, E, E2, E3). Les doses A et B concernent les vaccins qui devaient être pris en deux injections pour être efficaces alors que la dose C correspond au vaccin qui n'en nécessite qu'une seule. Les doses E, E2 et E3 sont les doses de rappels.
 
-Le nombre des vaccins administrés par sexe est proposé ci-dessous.
+Le nombre de vaccins administrés par sexe est représenté ci-dessous.
 
 ```{r brand_sex}
 vaccine %>.%
@@ -91,34 +91,36 @@ vaccine %>.%
   spivot_wider(., names_from = "sex", values_from = "nb")
 ```
 
-<!--% Proposez 2 éléments, sous forme de liste des résultats relatifs à la répartition des vaccins administrés par sexe.-->
+<!--% Interprétez ce tableau : complétez deux éléments, sous forme de liste des résultats relatifs à la répartition des vaccins administrés par sexe.-->
 
 -   ...
 
 -   ...
 
-La Belgique a encouragé les Belges à se faire administrer des doses de rappels.
+Notre pays a encouragé les Belges à se faire administrer des doses de rappels.
 
 ```{r age}
-# filtrer les données pour ne garder que les secondes doses et troisièmes dose de rappels
+# Filtrer les données pour ne garder que les secondes et troisièmes doses de rappels
 vaccine %>.%
- sfilter(., dose %in% c("E2", "E3")) %>.%
- sgroup_by(., agegroup, region) |> ssummarise(
-   tot = fsum(count) |> labelise("Nombre de doses administrées")) %->%
- comp_vaccine
+  sfilter(., dose %in% c("E2", "E3")) %>.%
+  sgroup_by(., agegroup, region) |> ssummarise(
+    tot = fsum(count) |> labelise("Nombre de doses administrées")) %->%
+  comp_vaccine
 
 comp_vaccine %>.%
- sdrop_na(., region) %>.%
- chart(., tot ~ agegroup %fill=% region) +
-   geom_col()
+  sdrop_na(., region) %>.%
+  chart(., tot ~ agegroup %fill=% region) +
+    geom_col()
 ```
 
-Le graphique ci-dessus s'intéresse uniquement aux secondes et troisièmes doses de rappels. La répartition des groupes d'âge est disponible sur le graphique ci-dessous.
+Ce graphique représente uniquement les secondes et troisièmes doses de rappels et il montre comment elles se répartissent en fonction des groupes d'âge.
 
-<!--% Proposez 2 éléments supplémentaires, sous forme de liste des résultats relatifs à la répartition des vaccins administrés par groupe d'âge.-->
+<!--% Interprétez ce graphique : donnez deux éléments supplémentaires, sous forme de liste, des résultats relatifs à la répartition des vaccins administrés par groupe d'âge.-->
 
 -   On dénombre `r sum(comp_vaccine$vac_tot)` doses de rappels administrées.
 
 -   ...
 
 -   ...
+
+<!-- Vous voilà arrivé au bout de ce bloc-notes. Ce type de document relativement informel reprend les différents éléments de vos analyses de données, y compris les tableaux et les graphiques, suivis d'une interprétation complète, mais brève (qui peut par exemple se présenter sous forme d'une liste des points à retenir). Le format R Markdown est très utile ici pour combiner du texte structuré avec les instructions R qui effectuent l'analyse dans des chunks. Les tableaux et graphiques sont directement placés au bon endroit dans le document. De plus, si les données changent, il suffit de réexécuter le script d'importation et de recompiler (bouton Knit) le document pour le mettre à jour. -->

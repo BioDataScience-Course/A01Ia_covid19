@@ -2,7 +2,7 @@
 
 ## Avant-propos
 
-Les consignes reprises dans ce document, ainsi que dans les différents fichiers sont susceptibles d'évoluer. N'hésitez pas à vérifier le lien suivant afin de voir si des modifications n'y ont pas été apportées : <https://github.com/BioDataScience-Course/A01Ia_covid19> .
+Les consignes reprises dans ce document, ainsi que dans les différents fichiers, sont susceptibles d'évoluer. N'hésitez pas à vérifier le lien suivant afin de voir si des modifications n'y ont pas été apportées : <https://github.com/BioDataScience-Course/A01Ia_covid19> .
 
 Ce projet nécessite d'avoir assimilé l'ensemble des notions du premier module du cours de science des données biologiques I. Dans le module 1, vous avez été renvoyé vers des appendices comme l'[appendice B](https://wp.sciviews.org/sdd-umons/?iframe=wp.sciviews.org/sdd-umons-2022/prise.html). Ce projet nécessite également d'avoir pris connaissance de ces appendices.
 
@@ -13,11 +13,11 @@ Ce projet est *individuel*, *cadré* et à durée limitée (2h). Ce projet vous 
 -   cloner un projet hébergé sur GitHub
 -   découvrir l'organisation des dossiers d'un projet scientifique
 -   découvrir le R Markdown
--   réaliser des modifications, des commits, des pull et des push.
+-   réaliser des modifications, des commits, des pulls et des pushes.
 
 ## Consignes
 
-La structuration d'un projet en science des données respecte quelques conventions que vous devez appliquer. Des explications sur 'organisation d'un projet est disponibles dans l'appendice [B.1.1.2 Organisation d'un projet](https://wp.sciviews.org/sdd-umons/?iframe=wp.sciviews.org/sdd-umons-2022/rs.html). On y retrouve généralement :
+La structuration d'un projet en science des données respecte quelques conventions que vous devez appliquer. Des explications sur l’organisation d'un projet sont disponibles dans l'appendice [B.1.1.2 Organisation d'un projet](https://wp.sciviews.org/sdd-umons/?iframe=wp.sciviews.org/sdd-umons-2022/rs.html). On y retrouve généralement :
 
 -   un fichier `README.md` qui présente le projet
 -   un dossier `data/` qui comprend les données comme des fichiers au format `csv`
@@ -40,9 +40,9 @@ Repérez les trois zones spécifiques d'un document R Markdown
 -   les zones d'édition éditées avec le langage Markdown
 -   des zones de code R appelées des chunks
 
-Le préambule débute **toujours** par --- et se termine **toujours** par ---. Il n'y a pas de ligne vide dans un préambule. On y indique des if `nom: valeur`. Il ne faut pas d'espace entre le nom et les deux points, par contre il faut un espace entre les deux points et la valeur.
+Le préambule débute **toujours** par --- et se termine **toujours** par ---. Il n'y a pas de lignes vides dans un préambule. On y indique des informations sous forme de `nom: valeur`. Il ne faut pas d'espace entre le nom et les deux points, par contre il faut un espace entre les deux points et la valeur.
 
-Les zones d'édition en markdown respectent les conventions markdown. Laissez toujours une ligne vide entre un paragraphe et un chunk ainsi qu'après les --- de la fin du préambule.
+Les zones d'édition en Markdown respectent les conventions Markdown. Laissez toujours une ligne vide entre un paragraphe et un chunk ainsi qu'après les --- de la fin du préambule.
 
 Les zones dédiées au code sont balisées par ```` ```{r} ```` pour des chunks faisant appel au logiciel **R**, et sont terminés par trois apostrophes inverses (```` ``` ````).
 
@@ -50,11 +50,11 @@ Des commentaires sont mis à votre disposition dans les zones d'édition en Mark
 
 Ouvrez le fichier `R/import_data.R`. Placez votre curseur en première ligne de ce fichier dans la fenêtre d'édition et exécutez chaque ligne. Cliquez sur Run dans la barre d'outils de la fenêtre d'édition, ou utilisez le raccourci clavier Ctrl+Enter ou Cmd+Enter sur MacOS pour exécuter les instructions les unes après les autres. Les lignes précédées d'un dièse ne sont pas interprétées par R. Vous pouvez à présent enregistrer (cliquez sur la disquette dans la barre d'outils) et fermer le fichier `R/import_data.R`. Vous venez de faire une mise à jour du fichier `data/be_vaccine_covid.rds`
 
-Retournez dans le fichier `vaccination_notebook.Rmd` Cliquez sur le bouton `Run` barre d'outils de la fenêtre d'édition. Il s'agit d'un menu déroulant. Cliquez ensuite sur `Run All`. Cette instruction va exécuter chaque ligne de code présent dans chaque chunk.
+Retournez dans le fichier `vaccination_notebook.Rmd` Cliquez sur le bouton `Run` de la barre d'outils de la fenêtre d'édition. Il s'agit d'un menu déroulant. Cliquez ensuite sur `Run All`. Cette instruction va exécuter chaque ligne de code présent dans chaque chunk.
 
 À plusieurs endroits, il vous est demandé de compléter le document. Cherchez les balises dédiées aux consignes dans le document. Ensuite, compilez à nouveau votre document en cliquant sur le bouton `Knit`. Analysez votre document compilé afin d'observer les différences obtenues.
 
-Vous avez bien travaillé ! Il est temps de réaliser une sauvegarde de votre projet et de l'envoyer sur GitHub. Vous allez réaliser un `commit`, un `pull` et un `push`.
+Vous avez bien travaillé ! Il est temps de réaliser une sauvegarde de votre projet et de l'envoyer sur GitHub. Vous allez réaliser un `commit`, un `pull` et un `push`.
 
 ![](figures/git.png)
 
