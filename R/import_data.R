@@ -1,39 +1,50 @@
 # Importation et remaniement des données de vaccination en Belgique
+# Auteur : Engels Guyliann
+# Date : 2022-09-21
+# Licence : MIT
+# Info :
+## Ce script permet d'importer, de remanier et de sauvegarder une copie en local
+## des données sur la vaccination en Belgique via <https://epistat.sciensano.be/covid/>
 
-# Packages utiles ----
+# Setup -------------------------------------------------------------------
+# Importation des principaux outils et paramétrisation
 SciViews::R(lang = "fr")
 
-# Importation des données ----
-vaccines <- read$csv("https://epistat.sciensano.be/Data/COVID19BE_VACC.csv")
-class(vaccines)
-readr::spec(vaccines)
-# Conversion en data.table
-vaccines <- as_dtx(vaccines)
-class(vaccines)
+# Importation -------------------------------------------------------------
+# Lecture des données depuis une URL.
+vaccine <- read$csv("https://epistat.sciensano.be/Data/COVID19BE_VACC.csv")
 
-# Remaniement des données ----
-skimr::skim(vaccines)
+# Conversion en data frame par défaut
+vaccine <- as_dtx(vaccine)
+class(vaccine) # notre tableau est un data.table par défaut.
+skimr::skim(vaccine)
 
-## On utilise de préférence des noms de colonnes
-## en minuscule, sans espace et sans accent
-vaccines %>.%
+# Remaniement du tableau --------------------------------------------------
+vaccine %>.%
   rename_all(., tolower) %>.%
+  ## On renomme les colonnes par des noms en miniscule
+  ## de préférence les noms de colonnes sont en minuscule, sans espace et sans accent
   filter(., brand != "Other") %>.%
+  ## On filtre les individus vaccinés par un vaccin inconnu
   mutate(.,
     region = fct_recode(region, Wallonia = "Ostbelgien")) %->%
-  vaccines
+  ## On renome la région Ostbelgien en Wallonia
+  ## car il n'existe pas région Osbelgien en Belgique mais bien une communauté.
+  vaccine
 
-## Ajout de labels aux variables du tableau
-vaccines <- labelise(vaccines, label = list(
+
+# Ajout des labels au tableau --------------------------------------------
+vaccine <- labelise(vaccine, label = list(
     date = "Date", region = "Région", agegroup = "Groupe d'age",
     sex = "Sexe", brand = "Vaccin", dose = "Type de dose",
     count = "Nombre de doses administrées"))
 
-## Ajout de metadonnée relative à la date de la sauvegarde en local du fichier.
-attr(vaccines, "local_save") <- lubridate::today()
 
-# Sauvegarde locale des données ----
+# Ajout de metadonnée relative à la date de téléchargement des donnés ----
+attr(vaccine, "downloaded") <- lubridate::today()
+
+# Sauvegarde locale du tableau --------------------------------------------
+write$rds(vaccine, "data/be_vaccine_covid.rds", compress = "xz")
 ## Copie en local des données au format `rds` et compressée
-write(vaccines, here::here("data", "be_vaccines_covid.rds"), type = "rds", compress = "xz")
 
 
