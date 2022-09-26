@@ -19,7 +19,7 @@ knitr::opts_chunk$set(echo = TRUE, message = FALSE)
 SciViews::R(lang = "fr")
 library(lubridate)
 # Importation des données en local ----
-vaccine <- read("../data/be_vaccines_covid.rds")
+vaccine <- read("../data/be_vaccine_covid.rds")
 last_update <- paste0("Mis à jour le " , attr(vaccine, "downloaded"))
 ```
 
