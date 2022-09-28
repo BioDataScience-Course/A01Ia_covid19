@@ -55,8 +55,8 @@ vaccine %>.%
 -   Une troisième vague semble débuter en septembre 2022.
 
 ```{r brand}
-nb_brand_dose %>.%
-  sgroup_by(., brand) |> ssummarise(nb = fsum(nb)) %>.%
+vaccine %>.%
+  sgroup_by(., brand) |> ssummarise(nb = fsum(count)) %>.%
   sarrange(., desc(nb)) %->%
   nb_brand
 
@@ -75,7 +75,7 @@ Ce tableau indique la répartition des vaccins administrés.
 vaccine %>.%
   sgroup_by(., brand, dose) |> ssummarise(nb = fsum(count)) %>.%
   sarrange(., desc(nb)) %>.%
-  spivot_wider(nb_brand_dose, names_from = "dose", values_from = "nb") %>.%
+  spivot_wider(., names_from = "dose", values_from = "nb") %>.%
   replace_NA(., value = 0)
 ```
 
