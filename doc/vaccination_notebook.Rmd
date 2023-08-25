@@ -35,7 +35,7 @@ Ce carnet de notes étudie les campagnes de vaccination contre le COVID-19 en Be
 
 <!--# Ci-dessus, vous pouvez observer que du code R a été intégré au sein du texte, le r min(...). Ce code est remplacé par le résultat du calcul à l'intérieur du paragraphe de texte dans la version finale, dite "compilée" du document. Cette technique est très utile pour ajouter à votre texte des éléments contextuels aux données. -->
 
-![La vaccination COIVID-19 se fait par injection dans le bras.](figures/vaccination.jpg){alt="La vaccination COIVID-19 se fait par injection dans le bras." fig-align="center" width="75%"}
+![La vaccination COIVID-19 se fait par injection dans le bras.](figures/vaccination.jpg){fig-align="center" width="75%"}
 
 <!--# Vous pouvez observer ci-dessus qu'une image est incluse dans le document. Pour visualiser la syntaxe employée pour l'intégrer ici, passez en mode "Source" qui est le premier bouton dans la barre d'outil du bas juste au dessus du document. Ensuite repassez en mode "Visual" et observer comment se présente le contenu dans les deux modes. -->
 

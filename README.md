@@ -44,11 +44,13 @@ Dans RStudio, vous visualisez le contenu d'un projet et vous naviguez dans ses s
 On y retrouve généralement :
 
 -   un fichier `README.md` qui présente le contenu du dépôt (que vous lisez en ce moment)
+-   un fichier `DESCRIPTION` qui présente des métadonnées relatives au projet.
 -   dans le cas de RStudio, un fichier `.Rproj`, ici `A01Ia_covid19.Rproj` qui ouvre et paramètre le projet dans RStudio. Vous ne l'éditez jamais directement.
 -   un fichier `.gitignore` pour un dépôt git qui indique les fichiers qui ne doivent pas être repris dans les versions (fichiers temporaires, versions finales des rapports, par exemple). **Vous ne devez pas y toucher.**
 -   un dossier `data/` qui comprend les données comme par exemple, des fichiers au format CSV
 -   un dossier `doc/` qui contient les bloc-notes, les rapports ou les présentations liés au projet
 -   un dossier `R/` qui rassemble des fichiers composés d'une suite d'instructions qui peuvent être interprétés pour effectuer des analyses, dont l'extension est `.R`. Ce sont les "scripts R" que vous allez découvrir tout au long du cours. Des explications complémentaires se trouvent dans l'appendice [B.1.2 Scripts R dans RStudio](https://wp.sciviews.org/sdd-umons/?iframe=wp.sciviews.org/sdd-umons-2023/rs.html).
+-   éventuellement un dossier `tests/` auquel il ne faut rien toucher. Dans ce cas, une batterie de tests existent pour vérifier que vous avez réalisé tous les exercices demandés correctement.
 
 Explorez chaque dossier et ouvrez les fichiers se trouvant dans les dossiers `R/` et `doc/` en cliquant dessus. Vous allez maintenant réaliser les exercices qui s'y trouvent.
 
@@ -104,6 +106,12 @@ Il est possible de changer le format de sortie (HTML, PDF, Word), mais pour l'in
 
 Vous avez bien travaillé ! Il est temps de réaliser une sauvegarde de votre projet et de mettre à jour la version sur GitHub.
 
+### Vérifications
+
+Dans le cas où votre projet contient un dossier `tests/` et qu'un onglet **Construire** est présent dans le panneau en haut à droite, comme ici, cela signifie qu'une batterie de tests est disponible pour vérifier que les exercices sont bien réalisés en tout ou en partie. Ouvrez cet onlget et cliquez sur le bouton **Construire tout**. Les tests indiquent `[success]` ou `[failure]`. Pour les tests ratés, vous pouvez cliquer sur le lien et le fichier de test s'ouvre à la ligne correspondante. **Ne modifiez rien** dans ce fichier, mais lisez le commentaire juste en dessous du test pour déterminer quoi faire pour corriger le problème.
+
+Une fois que vous êtes satisfait de votre travail, vous pouvez passer à l'étape suivante qui consiste à synchroniser vos modifications avec GitHub.
+
 ### Commit et synchronisation des modifications avec GitHub
 
 Avant toute chose, assurez vous **toujours d'avoir enregistré tous vos documents**. Dans la zone d'édition, observez bien les différents onglets ouverts. Ils portent le nom des fichiers. Si ce nom est en rouge et suivi d'un astérisque, alors il y a des modifications non sauvegardées. Cliquez sur l'onglet et ensuite allez dans le menu **Fichier** -\> **Enregistrer**. Repérez l'icône au début de cette entrée de menu. C'est une petite "disquette" bleue. C'est le support qui était utilisé au 20ème siècle pour enregistrer des documents informatiques, mais qui a disparu aujourd'hui. L'icône est restée, par contre, pour symboliser l'enregistrement d'un document ! Vous repérez ensuite la même icône dans la barre d'outils. C'est un raccourci utile pour enregistrer, de même que le raccourci `CTRL + S` (enfoncez la touche `CTRL`, puis `S` et enfin relâchez les deux pour activer ce **raccourci clavier**. Il est aussi renseigné à la droite de l'élément de menu (vous devez rouvrir le menu **Fichier** pour le voir). Sur le Mac, ce sera plutôt le raccourci `CMD + S`. Vous avez aussi une entrée de menu **Sauvegarder tout** qui est bien pratique si plusieurs documents sont en cours d'édition. Repérez aussi l'icône et le raccourci clavier correspondants.
@@ -114,16 +122,14 @@ Une fois tous vos fichiers sauvegardés, vous allez réaliser successivement un 
 
 Pour cela, vous aller ouvrir l'onglet **Git** qui se trouve dans le panneau supérieur droit dans votre fenêtre. Cliquez ensuite sur le bouton **Commit** dans sa barre d'outils. Une fenêtre s'ouvre qui vous rappelle les modifications réalisées dans chaque fichier du projet. Sélectionnez les fichiers que vous souhaitez reprendre dans votre commit (mettez une coche dans la case devant le nom du fichier ; la plupart du temps, on sélectionne tout). Vous devez ajouter un **message informatif** à ce commit dans la partie de droite. Le message doit présenter de manière claire et concise ce que vous avez réalisé. Par exemple : "Ajout de l'auteur et des commentaires des tables et figures." Cliquez enfin sur le bouton **Commit**.
 
-Vous venez de réaliser votre premier commit ! Ne fermez pas encore la fenêtre. Cliquez maintenant sur la flèche bleue afin de faire un "pull" puis cliquez sur la flèche verte afin de faire un "push". Lisez bien les messages qui apparaissent. C'est là que les problèmes éventuels seront exposés, mais ici, il ne devrait pas y en avoir. Vous pouvez fermer la fenêtre de commit à présent.
+Vous venez de réaliser votre premier commit ! Ne fermez pas encore la fenêtre. Cliquez maintenant sur la flèche bleue afin de faire un "pull" puis cliquez sur la flèche verte afin de faire un "push". Lisez bien les messages qui apparaissent. C'est là que les problèmes éventuels seront exposés, mais dans le cas présent, il ne devrait pas y en avoir. Vous pouvez fermer la fenêtre de commit à présent.
+
+En pratique, ne soyez pas avare de **commit-pull-push**. Vous pouvez en faire autant que vous voulez. Dès que vous avez franchi une étape importante, qu'un exercice est fini, qu'un fichier est édité, etc., faites un commit-pull-push. Pesnez toujours à bien vérifier tout de même que RStudio est dans le **bon projet** et que vos fichiers sont bien **sauvegardés**.
 
 Rendez-vous maintenant sur GitHub afin de vérifier que vos modifications et votre commit sont bien répercutés dans le dépôt en ligne. Pour y accéder, retrouvez votre projet dans l'organisation GitHub <https://github.com/BioDataScience-Course> et ensuite, lisez ce qui apparaît en haut de la page : le texte de votre commit doit s'y trouver. Et si vous naviguez vers les fichiers qui ont été édités et que vous affichez leur contenu, vous devez y retrouver vos modifications.
 
 **Il est très important d'effectuer cette dernière vérification !** Chaque année, des étudiants perdent des points parce qu'il ont oublié de faire un dernier commit et/ou un push. Par conséquent, la fin de leur travail n'apparaît pas dans GitHub. Or la seule version que vos enseignants voient est celle sur GitHub. Votre travail local dans votre machine Saturn Cloud ne leur est pas accessible !
 
 Une fois tout cela effectué, vous avez terminé et devriez être plus à l'aise dans l'utilisation de base de RStudio pour éditer des documents et les compiler en forme finale, ainsi que dans l'utilisation principale de git et GitHub via le clonage de projet, les commits, pulls et pushes.
-
-### Vérifications
-
-TODO: testthat...
 
 *Une fois terminé, vous pouvez clôturer la session en cliquant sur le bouton orange tout en haut à droite de la fenêtre. Cela va refermer proprement votre machine Saturn Cloud (prenez l'habitude de le faire toujours en fin de session).*

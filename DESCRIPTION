@@ -1,0 +1,17 @@
+Package: A01Ia_covid19
+Type: Package
+Version: 3.0.0
+Title: Suivi de la vaccination contre le COVID-19 en Belgique
+Description: Projet individuel cadré du module 1 du cours SDD I à l'UMONS
+Authors@R: c(
+  person("Guyliann", "Engels", role = "aut",
+    email = "guyliann.engels@umons.ac.be"),
+  person("Philippe", "Grosjean", role = c("aut", "cre"),
+    email = "phgrosjean@sciviews.org",
+    comment = c(ORCID = "0000-0002-2694-9471"))
+  )
+License: MIT
+URL: https://github.com/BioDataScience-Course/A01Ia_covid19
+BugReports: https://github.com/BioDataScience-Course/A01Ia_covid19/issues
+Encoding: UTF-8
+Language: fr-FR
