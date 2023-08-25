@@ -17,6 +17,7 @@ README.html
 *.knit.md
 **/figure-html/
 **/*_files/
+doc/*.md
 doc/*.html
 doc/*.tex
 doc/*.log
