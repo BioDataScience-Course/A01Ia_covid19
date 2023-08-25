@@ -3,6 +3,8 @@ title: "Suivi de la vaccination contre le COVID 19 en Belgique"
 author: "___"
 date: "`r lubridate::today()`"
 output:
+  pdf_document: 
+    keep_tex: yes
   html_document: 
     code_folding: hide 
     theme: journal

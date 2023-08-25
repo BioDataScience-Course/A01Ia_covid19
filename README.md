@@ -17,20 +17,20 @@ Ce projet est *individuel*, *cadré* et à durée limitée (2h). Ce projet vous 
 
 ## Consignes
 
-La structuration d'un projet en science des données respecte quelques conventions que vous devez appliquer. Des explications sur l’organisation d'un projet sont disponibles dans l'appendice [B.1.1.2 Organisation d'un projet](https://wp.sciviews.org/sdd-umons/?iframe=wp.sciviews.org/sdd-umons-2022/rs.html). On y retrouve généralement :
+La structuration d'un projet en science des données respecte quelques conventions que vous devez appliquer. Des explications sur l'organisation d'un projet sont disponibles dans l'appendice [B.1.1.2 Organisation d'un projet](https://wp.sciviews.org/sdd-umons/?iframe=wp.sciviews.org/sdd-umons-2022/rs.html). On y retrouve généralement :
 
 -   un fichier `README.md` qui présente le projet
 -   un dossier `data/` qui comprend les données comme des fichiers au format `csv`
--   un dossier `docs/` qui comprend les rapports ou les présentations liés au projet
--   un dossier `R/` qui comprend des fichiers composés d'une suite d'instructions qui peuvent être interprétés pour effectuer des analyses, dont l'extension est `.R`. Ces scripts contiennent des instructions en code R que vous allez découvrir tout au long de cours. Des explications complémentaires se trouvent dans l'appendice [B.1.2 Scripts R dans RStudio](https://wp.sciviews.org/sdd-umons/?iframe=wp.sciviews.org/sdd-umons-2022/rs.html).
+-   un dossier `doc/` qui contient les bloc-notes, les rapports ou les présentations liés au projet
+-   un dossier `R/` qui rassemble des fichiers composés d'une suite d'instructions qui peuvent être interprétés pour effectuer des analyses, dont l'extension est `.R`. Ces scripts contiennent des instructions en code R que vous allez découvrir tout au long de cours. Des explications complémentaires se trouvent dans l'appendice [B.1.2 Scripts R dans RStudio](https://wp.sciviews.org/sdd-umons/?iframe=wp.sciviews.org/sdd-umons-2022/rs.html).
 
-Explorez chaque dossier et ouvrez les fichiers se trouvant dans le dossier `R/` et dans le dossier `docs/`. Lisez les nombreux commentaires et le code qui s'y trouve.
+Explorez chaque dossier et ouvrez les fichiers se trouvant dans le dossier `R/` et dans le dossier `doc/`. Lisez les nombreux commentaires et le code qui s'y trouve.
 
 Ouvrez le fichier `vaccination_notebook.Rmd`, il s'agit d'un carnet de notes concernant l'évolution de la vaccination en Belgique. En connaissant la structure classique d'un projet, vous savez où ce fichier se trouve.
 
 Cliquez sur le bouton `Knit` qui se trouve dans la barre d'outils au-dessus du document que vous venez d'ouvrir. Ce fichier est un au format Rmd qui signifie qu'il s'agit d'un document R Markdown. Pour cette première activité, retenez qu'il s'agit d'un format qui permet de combiner le Markdown (que vous avez découvert dans ce premier module) et le langage R (que vous allez découvrir lors du second module). Le langage R permet entre autres la manipulation, la visualisation et l'application de calculs statistiques sur des données.
 
-![](figures/knit_document.png)
+![](doc/figures/knit_document.png)
 
 Vous venez de réaliser votre première compilation d'un document au format Rmd vers un document au format HTML. Il est possible en appuyant sur le menu déroulant à côté du bouton Knit, de définir si vous voulez un document compilé au format HTML, PDF ou Word. Retrouvez toutes les informations sur le R Markdown dans l'annexe [B.1.3 R Markdown/R Notebook](https://wp.sciviews.org/sdd-umons/?iframe=wp.sciviews.org/sdd-umons-2022/rs.html).
 
