@@ -1,10 +1,59 @@
-.Rproj.user
+# R files
 .Rhistory
+.Rapp.history
 .RData
+.RDataTmp
 .Ruserdata
+.Renviron
 
+# RStudio files
+.Rproj.user
+.Rproj.user/
+rsconnect/
+
+# Compiled files and temporary R Markdown files
 README.html
-docs/**/**.html
-docs/**/**.pdf
-docs/**/**.docx
+*.utf8.md
+*.knit.md
+**/figure-html/
+**/*_files/
+doc/*.html
+doc/*.tex
+doc/*.log
+doc/*.aux
+doc/*.pdf
+doc/*.docx
+doc/*.doc
+doc/*.pptx
+doc/*.ppt
+
+# Quarto, bookdown, pkgdown website, etc
+inst/doc
+docs
+docs/
+_book/
+_bookdown_files/
+/.quarto/
+/_site/
+.quarto/
+_site/
+
+# Knitr cache
+*_cache/
+/cache/
+
+# Package build files
+*-Ex.R
+po/*~
+/*.Rcheck/
+vignettes/*.html
+vignettes/*.pdf
+
+# OAuth2 token, see https://github.com/hadley/httr/releases/tag/v0.3
+.httr-oauth
+
+# System files and others
+www/.vscode/
 .DS_Store
+.Thumbs.db
+Thumbs.db
