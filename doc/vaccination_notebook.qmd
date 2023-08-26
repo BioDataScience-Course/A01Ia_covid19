@@ -22,7 +22,8 @@ tabularise <- function(x, ...) {
     Stb$set_caption(knitr::opts_current$get('tbl-cap')) |>
     Stb$autofit()
 }
-Stb$set_flextable_defaults(big.mark = "\u00a0")
+Stb$set_flextable_defaults(big.mark = "\u00a0",
+  font.family = "Arial", font.size = 12)
 # Importation des données locales depuis /data
 vaccine <- read("../data/be_vaccine_covid.rds")
 last_update <- paste0("Mis à jour le " , attr(vaccine, "downloaded"))

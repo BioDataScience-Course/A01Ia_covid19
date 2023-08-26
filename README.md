@@ -46,7 +46,7 @@ On y retrouve généralement :
 -   un fichier `README.md` qui présente le contenu du dépôt (que vous lisez en ce moment)
 -   un fichier `DESCRIPTION` qui présente des métadonnées relatives au projet.
 -   dans le cas de RStudio, un fichier `.Rproj`, ici `A01Ia_covid19.Rproj` qui ouvre et paramètre le projet dans RStudio. Vous ne l'éditez jamais directement.
--   un fichier `.gitignore` pour un dépôt git qui indique les fichiers qui ne doivent pas être repris dans les versions (fichiers temporaires, versions finales des rapports, par exemple). **Vous ne devez pas y toucher.**
+-   un fichier `.gitignore` pour un dépôt git qui indique les fichiers qui ne doivent pas être repris dans les versions (fichiers temporaires, versions finales des rapports, par exemple). **Vous ne devez pas y toucher.** (si un fichier `.Rbuildignore` est aussi présent, ignorez-le également).
 -   un dossier `data/` qui comprend les données comme par exemple, des fichiers au format CSV
 -   un dossier `doc/` qui contient les bloc-notes, les rapports ou les présentations liés au projet
 -   un dossier `R/` qui rassemble des fichiers composés d'une suite d'instructions qui peuvent être interprétés pour effectuer des analyses, dont l'extension est `.R`. Ce sont les "scripts R" que vous allez découvrir tout au long du cours. Des explications complémentaires se trouvent dans l'appendice [B.1.2 Scripts R dans RStudio](https://wp.sciviews.org/sdd-umons/?iframe=wp.sciviews.org/sdd-umons-2023/rs.html).
