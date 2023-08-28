@@ -28,7 +28,7 @@ last_update <- paste0("Mis à jour le " , attr(vaccine, "downloaded"))
 
 # Introduction et but
 
-Ce carnet de notes s'intéresse aux campagnes de vaccination contre le COVID-19 en Belgique. Celles-ci ont débuté le `r min(vaccine$date)`. L'objectif est de faire ressortir quelques éléments marquant au niveau de l'utilisation des vaccins (types, répartition par région, par genre, etc.)
+Ce carnet de notes s'intéresse aux campagnes de vaccination contre le COVID-19 en Belgique. Celles-ci ont débuté le `r min(vaccine$date)`. L'objectif est de faire ressortir quelques éléments marquants au niveau de l'utilisation des vaccins (types, répartition par région, par genre, etc.)
 
 <!--# Ci-dessus, vous pouvez observer que du code R a été intégré au sein du texte, le r min(...). Ce code est remplacé par le résultat du calcul à l'intérieur du paragraphe de texte dans la version finale, dite "compilée" du document. Cette technique est très utile pour ajouter à votre texte des éléments contextuels aux données. -->
 
