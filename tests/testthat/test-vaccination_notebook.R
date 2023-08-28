@@ -2,6 +2,7 @@
 
 test_that("Le bloc-notes à été correctement compilé en un fichier final HTML", {
   expect_true(file.exists("../../doc/vaccination_notebook.html"))
+  # TODO: comparer date de dernière modif html vs qmd -> si version finale pas compilée...
 
   # Ce test vérifie la présence du fichier HTML final. Vous devez compiler le
   # document doc/vaccination_notebook.qmd, et cette compilation doit s'être
@@ -25,6 +26,7 @@ test_that("Le nom d'auteur a été modifié", {
   # doc/vaccination_notebook.R. Apparemment, cela n'a pas encore été fait...
 })
 
+# TODO: vérifier aussi structure des titres
 test_that("Les chunks attendus sont présents dans le document", {
   expect_true(all(c("setup", "week", "brand", "brand_dose", "brand_sex", "age")
     %in% rmd_node_label(vacc_ast)))

@@ -15,18 +15,17 @@ rsconnect/
 README.html
 *.utf8.md
 *.knit.md
-**/figure-html/
-**/*_files/
-doc/*.md
-doc/*.html
-doc/*.tex
-doc/*.log
-doc/*.aux
-doc/*.pdf
-doc/*.docx
-doc/*.doc
-doc/*.pptx
-doc/*.ppt
+figure-html/
+*_files/
+*.html
+*.tex
+*.log
+*.aux
+*.pdf
+*.docx
+*.doc
+*.pptx
+*.ppt
 
 # Quarto, bookdown, pkgdown website, etc
 inst/doc

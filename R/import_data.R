@@ -7,7 +7,7 @@
 # <https://epistat.sciensano.be/covid/>
 
 # Setup -------------------------------------------------------------------
-# Importation des principaux outils et paramétrisation de l'environnment
+# Importation des principaux outils et paramétrisation de l'environnement
 SciViews::R(lang = "fr")
 
 # Importation -------------------------------------------------------------
@@ -26,9 +26,13 @@ vaccine %>.%
   rename_all(., tolower) %>.%
   # On élimine les lignes du tableau correspondant à un vaccin inconnu (Other)
   filter(., brand != "Other") %>.%
-  ## On renome la région Ostbelgien en Wallonia car il n'existe pas de région
-  ## Osbelgien en Belgique mais bien une communauté.
-  mutate(., region = fct_recode(region, Wallonia = "Ostbelgien")) %->%
+  # On renome la région Ostbelgien en Wallonia car il n'existe pas de région
+  # Osbelgien en Belgique mais bien une communauté.
+  mutate(., region = fct_recode(region,
+    `Bruxelles-capitale` = "Brussels",
+    Flamande = "Flanders",
+    Wallonne = "Wallonia",
+    Wallonne = "Ostbelgien")) %->%
   vaccine
 
 

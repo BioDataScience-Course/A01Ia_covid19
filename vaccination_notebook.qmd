@@ -1,0 +1,155 @@
+---
+title: "Suivi de la vaccination contre le COVID-19 en Belgique"
+author: "___"
+date: "`r Sys.Date()`"
+format:
+  html:
+    code-fold: true
+    code-tools: true
+    toc: true
+editor: visual
+lang: fr
+---
+
+<!--# Ceci est un commentaire. Il n'apparaît pas dans votre rapport final. Observez la structure balisée par des '---' ci-dessus. C'est une zone particulière qui renseigne les informations de base du document telles que le titre, l'auteur, la date ou encore le format de sortie du document. Cette zone s'appelle un entête YAML. -->
+
+<!--% Ceci est une consigne. Elle sera aussi invisible dans la version finale. Elle vous explique ce que vous devez faire. Remplacez author: "___" par votre nom. ex: author: "John Doe". Attention, l'entête YAML est très sensible aux espaces, aux guillemets et à l'"indentation" (= le nombre d'espaces blancs au début de chaque ligne). Par précaution, mettez toujours le texte derrière title:, author:, date:, ... entre guillemets doubles et respectez l'indentation initiale. -->
+
+```{r setup, include=FALSE}
+# Configuration de R
+SciViews::R(lang = "fr")
+# Importation des données locales depuis /data
+vaccine <- read("data/be_vaccine_covid.rds")
+# Date de mise à jour des données
+last_update <- paste0("Mis à jour le " , attr(vaccine, "downloaded"))
+```
+
+<!--# Observez les instructions ci-dessus, le code est placé dans une zone particulière que l'on nomme un morceau R ou "chunk" en anglais. Il n'est pas nécessaire de comprendre ces instructions pour l'instant, mais essayer quand même de deviner ce qu'elles font. Par exemple, la ligne avec read(...), "lire" en anglais, lit les données depuis le fichier "be_vaccine_covid.rds" qu'il va chercher dans le dossier "data". Vous apprendrez plus tard à écrire ces instructions vous-mêmes. Concentrez-vous sur la succession des zones de texte et des morceaux R. Vous pouvez exécuter les instructions dans la Console en cliquant sur le triangle vert en haut à droite du morceau. Vous pouvez ainsi exécuter les morceaux du document les uns après les autres dans l'ordre. -->
+
+# Introduction et but
+
+Ce carnet de notes s'intéresse aux campagnes de vaccination contre le COVID-19 en Belgique. Celles-ci ont débuté le `r min(vaccine$date)`. L'objectif est de faire ressortir quelques éléments marquant au niveau de l'utilisation des vaccins (types, répartition par région, par genre, etc.)
+
+<!--# Ci-dessus, vous pouvez observer que du code R a été intégré au sein du texte, le r min(...). Ce code est remplacé par le résultat du calcul à l'intérieur du paragraphe de texte dans la version finale, dite "compilée" du document. Cette technique est très utile pour ajouter à votre texte des éléments contextuels aux données. -->
+
+![La vaccination COVID-19 se fait par injection dans le bras.](figures/vaccination.jpg){fig-align="center" width="75%"}
+
+<!--# Vous pouvez observer ci-dessus qu'une image est incluse dans le document. Pour visualiser la syntaxe employée pour l'intégrer ici, passez en mode "Source" qui est le premier bouton dans la barre d'outil du bas juste au dessus du document. Ensuite repassez en mode "Visual" et observer comment se présente le contenu dans les deux modes. -->
+
+# Analyses
+
+Les analyses ci-dessous utilisent les données datant du `r attr(vaccine, "downloaded")`.
+
+En Belgique, `r prettyNum(fsum(vaccine$count), big.mark = "\u00a0")` doses de vaccins COVID-19 ont été administrées.
+
+<!--% Cliquez à nouveau sur le triangle vert en haut à droite du morceau R ci-dessous. Vous allez générer un graphique. Ensuite observez comment on commente brièvement les résultats obtenus, par exemple, sous forme d'une liste d'items marquants juste en dessous dans un bloc-notes d'analyse de données. -->
+
+```{r week}
+#| fig-cap: Vaccination dans le temps en Belgique.
+vaccine %>.%
+  smutate(., 
+    week = lubridate::floor_date(date,"week", week_start = 1)) %>.%
+  sgroup_by(., week) |> ssummarise(tot = fsum(count)) %>.%
+  chart(data = ., tot ~ week) +
+    geom_point() +
+    geom_line() +
+    labs(x = "Date", y = "Doses administrées par semaine")
+```
+
+-   Deux campagnes de vaccination sont observées via le nombre de vaccinations par semaine au cours du temps (début 2021 et début 2022).
+
+-   Une troisième campagne a débuté en septembre 2022.
+
+## Types de vaccins utilisés
+
+```{r brand}
+#| tbl-cap: Répartition des vaccins administrés par type.
+vaccine %>.%
+  sgroup_by(., brand) |> ssummarise(nb = fsum(count)) %>.%
+  sarrange(., desc(nb)) %->%
+  nb_brand
+
+tabularise(nb_brand)
+```
+
+<!--% Interprétez ce tableau : proposez un élément supplémentaire en dessous du premier en remplaçant les ... dans la liste ci-dessous. Naturellement, vous devez avoir généré le tableau au préalable en cliquant qur le triangle vert en haut à droite du morceau R pour pouvoir faire cette interprétation. -->
+
+-   le vaccin le plus administré est le `r ffirst(nb_brand$brand)`.
+
+-   ...
+
+```{r brand_dose}
+#| tbl-cap: Répartition des vaccins en fonction du type de dose.
+vaccine %>.%
+  sgroup_by(., brand, dose) |> ssummarise(nb = fsum(count)) %>.%
+  sarrange(., desc(nb)) %>.%
+  spivot_wider(., names_from = "dose", values_from = "nb") %>.%
+  srename(., Vaccin = brand) %>.%
+  relocate(., C, .after = B) %>.%
+  replace_NA(., value = 0) %->%
+  brand_dose
+
+tabularise(brand_dose, auto.labs = FALSE)
+```
+
+Les doses A et B concernent les vaccins qui devaient être pris en deux injections pour être efficaces alors que la dose C correspond au vaccin qui n'en nécessite qu'une seule. Les doses E, E2 et E3 sont les doses de rappels.
+
+-   Les vaccins à deux doses ont été largement plus utilisés.
+
+-   Seul le vaccin Johnson&Johnson est administré en use seule dose.
+
+-   L'AstraZeneca-Oxford n'a pas été utilisé pour les doses de rappel tandis que des nouveaux vaccins ont fait leur apparition en mode rappel.
+
+## Différences homme-femme
+
+```{r brand_sex}
+#| tbl-cap: Nombre de vaccins administrés par genre.
+vaccine %>.%
+  sgroup_by(., brand, sex) |> ssummarise(nb = fsum(count)) %>.%
+  sdrop_na(., sex) %>.%
+  sarrange(., desc(nb)) %>.%
+  spivot_wider(., names_from = "sex", values_from = "nb") %>.%
+  srename(., Vaccin = brand, Femme = F, Homme = M) %->%
+  brand_sex
+
+tabularise(brand_sex, auto.labs = FALSE)
+```
+
+<!--% Interprétez ce nouveau tableau : complétez deux éléments, sous forme de liste des résultats relatifs à la répartition des vaccins administrés par genre ci-dessous. -->
+
+-   ...
+
+-   ...
+
+## Doses de rappel
+
+Notre pays a encouragé les Belges à se faire administrer des doses de rappels.
+
+```{r age}
+#| fig-cap: Rappels 2 et 3 en fonction de l'âge.
+# Filtrer les données pour ne garder que les doses 2 et 3 de rappels
+vaccine %>.%
+  sfilter(., dose %in% c("E2", "E3")) %>.%
+  sgroup_by(., agegroup, region) |> ssummarise(
+    tot = fsum(count) |>
+      labelise("Nombre de rappels 2 et 3 administrés")) %->%
+  comp_vaccine
+
+comp_vaccine %>.%
+  sdrop_na(., region) %>.%
+  chart(., tot ~ agegroup %fill=% region) +
+    geom_col() +
+    xlab("Classes d'âges")
+```
+
+<!--% Interprétez ce graphique : ajoutez deux éléments supplémentaires à la liste ci-dessous. -->
+
+-   On dénombre `r prettyNum(sum(comp_vaccine$tot), big.mark = "\u00a0")` doses de rappels 2 et 3 administrées.
+
+-   ...
+
+-   ...
+
+<!--# Vous voilà arrivé au bout de ce bloc-notes. Ce type de document relativement informel reprend les différents éléments de vos analyses de données, y compris les tableaux et les graphiques, suivis d'une interprétation complète mais brève (qui peut par exemple se présenter sous forme d'une liste des points à retenir). Le format Quarto est très utile ici pour combiner du texte structuré avec les instructions R qui effectuent l'analyse dans des morceaux. Les tableaux et graphiques sont directement placés au bon endroit dans le document final. De plus, si les données changent, il suffit de réexécuter le script R d'importation et de recompiler la version finale du document (bouton Rendu) pour le mettre à jour. -->
+
+<!--% Une fois le document complété, compilez-en la version finale au format HTML. En cas de problème, lisez le message dans l'onglet Travaux qui explique ce qui ne va pas, et corrigez l'erreur (le mode "Source" peut être intéressant dans ce cas, car il indique les numéros de lignes qui apparaîssent dans le message pour repérer facilement où l'erreur s'est produite). -->

@@ -10,6 +10,8 @@ Authors@R: c(
     email = "phgrosjean@sciviews.org",
     comment = c(ORCID = "0000-0002-2694-9471"))
   )
+Depends: R (>= 4.2.3)
+SystemRequirements: SciViews Box 2023 (https://www.sciviews.org/software/svbox2023/)
 License: MIT
 URL: https://github.com/BioDataScience-Course/A01Ia_covid19
 BugReports: https://github.com/BioDataScience-Course/A01Ia_covid19/issues
