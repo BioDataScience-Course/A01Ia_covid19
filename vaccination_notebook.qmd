@@ -24,21 +24,32 @@ vaccine <- read("data/be_vaccine_covid.rds")
 last_update <- paste0("Mis à jour le " , attr(vaccine, "downloaded"))
 
 # Temporary code..
-select_answer <- function(x) {
-  ans <- strsplit(x, "\n[", fixed = TRUE)[[1]]
+select_answer <- function(x, name = NULL) {
+  ans <- strsplit(x, "\n[", fixed = TRUE)[[1]][-1]
   # Keep only ckecked answers
-  ans <- ans[grepl("^[xX]\\]", ans)]
+  checked <- grepl("^[xX]\\]", ans)
+  ans <- ans[checked]
   # Remove check marks
   ans <- sub("^[xX]\\] ? ?", "", ans)
   # Print result
   cat(ans, "", sep = "\n")
   # Save a digest of the results in a variable in \tests\results
-  # Note: the chunk lable is only available on the document
+  # Note: the chunk label is only available on the document
   # rendering, not when the chunk is executed in the R console!
-  name <- knitr::opts_current$get('label')
+  # So, if we rely on it, nothing is savec unless the document is
+  # knitted!
+  if (is.null(name))
+    name <- knitr::opts_current$get('label')
   if (!is.null(name)) {
     dir.create(here::here("tests", "results"), showWarnings = FALSE)
     res <- digest::digest(ans)
+    # In case we are in correction mode, output more info
+    if (getOption("learnitdown.correction", default = FALSE)) {
+      # Second line is 1/0 for each option (checked or not)
+      res <- c(res, paste(as.integer(checked), collapse = " "))
+      # Finally add the whole text
+      res <- c(res, x)
+    }
     writeLines(res, here::here("tests", "results", name))
   }
   invisible(ans)

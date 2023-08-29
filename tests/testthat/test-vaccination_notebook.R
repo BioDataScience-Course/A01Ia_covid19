@@ -1,6 +1,6 @@
 # Vérifications de doc/vaccination_notebook.qmd
 
-test_that("Le bloc-notes à été correctement compilé en un fichier final HTML", {
+test_that("Le bloc-notes a-til été correctement compilé en un fichier final HTML ?", {
   expect_true(file.exists("../../vaccination_notebook.html"))
   expect_true(file.exists("../../vaccination_notebook.html") &&
       file.mtime("../../vaccination_notebook.html") >=
@@ -22,7 +22,7 @@ test_that("Le bloc-notes à été correctement compilé en un fichier final HTML
 vacc_ast <- parse_rmd("../../vaccination_notebook.qmd",
   allow_incomplete = TRUE, parse_yaml = TRUE)
 
-test_that("Le nom d'auteur a été modifié", {
+test_that("Le nom d'auteur a-t-il été complété ?", {
   expect_false(vacc_ast[[1]]$author == "___")
   expect_true(grepl("[A-Za-z]+", vacc_ast[[1]]$author))
 
@@ -30,7 +30,7 @@ test_that("Le nom d'auteur a été modifié", {
   # vaccination_notebook.R. Apparemment, cela n'a pas encore été fait...
 })
 
-test_that("Les sections attendues sont présentes dans le document", {
+test_that("Les sections attendues sont-elles présentes dans le document ?", {
   expect_true(all(c("Introduction et but", "Analyses",
     "Types de vaccins utilisés", "Différences homme-femme", "Doses de rappel")
     %in% (rmd_node_sections(vacc_ast) |> unlist() |> unique())))
@@ -41,7 +41,7 @@ test_that("Les sections attendues sont présentes dans le document", {
   # "template" du document (lien au début du fichier README.md).
 })
 
-test_that("Les morceaux R attendus sont présents dans le document", {
+test_that("Les morceaux R attendus sont-ils présents dans le document ?", {
   expect_true(all(c("setup", "week", "brand", "brand_dose", "brand_sex", "age")
     %in% rmd_node_label(vacc_ast)))
 
@@ -51,7 +51,7 @@ test_that("Les morceaux R attendus sont présents dans le document", {
   # "template" du document (lien au début du fichier README.md).
 })
 
-test_that("Les commentaires sont complétés pour le tableau Vaccins par type", {
+test_that("Les commentaires sont-ils corrects pour le tableau Vaccins par type ?", {
   expect_equal("61dd8618359e20b17310213e4d9501b9",
     try(readLines(here::here("tests", "results", "brand_comment")),
       silent = TRUE))
@@ -61,18 +61,18 @@ test_that("Les commentaires sont complétés pour le tableau Vaccins par type", 
   # n'est pas encore fait.
 })
 
-test_that("Les commentaires sont complétés pour le tableau Vaccins par genre", {
+test_that("Les commentaires sont-ils complétés pour le tableau Vaccins par genre ?", {
   expect_false(rmd_select(vacc_ast, by_section("Différences homme-femme")) |>
-    as_document() |> grepl("-   ...", x = _) |> any())
+    as_document() |> grepl("^- +\\.+ *$", x = _) |> any())
 
   # Vous devez compléter la liste d'observations sous le tableau
   # "Vaccins par genre" dans vaccination_notebook.qmd. Si le test échoue,
   # ce n'est pas encore fait.
 })
 
-test_that("Les commentaires sont complétés pour le graphique Rappels en fonction de l'âge", {
+test_that("Les commentaires sont-ils complétés pour le graphique des rappels en fonction de l'âge ?", {
   expect_false(rmd_select(vacc_ast, by_section("Doses de rappel")) |>
-    as_document() |> grepl("-   ...", x = _) |> any())
+    as_document() |> grepl("^- +\\.+ *$", x = _) |> any())
 
   # Vous devez compléter la liste d'observations sous le graphique "Rappels 2 et
   # 3 en fonction de l'âge" dans vaccination_notebook.qmd. Si le test
