@@ -17,6 +17,7 @@ README.html
 *.knit.md
 figure-html/
 *_files/
+*.rmarkdown
 *.html
 *.tex
 *.log
