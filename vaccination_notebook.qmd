@@ -22,9 +22,34 @@ SciViews::R(lang = "fr")
 vaccine <- read("data/be_vaccine_covid.rds")
 # Date de mise à jour des données
 last_update <- paste0("Mis à jour le " , attr(vaccine, "downloaded"))
+
+# Temporary code..
+select_answer <- function(x) {
+  ans <- strsplit(x, "\n[", fixed = TRUE)[[1]]
+  # Keep only ckecked answers
+  ans <- ans[grepl("^[xX]\\]", ans)]
+  # Remove check marks
+  ans <- sub("^[xX]\\] ? ?", "", ans)
+  # Print result
+  cat(ans, "", sep = "\n")
+  # Save a digest of the results in a variable in \tests\results
+  # Note: the chunk lable is only available on the document
+  # rendering, not when the chunk is executed in the R console!
+  name <- knitr::opts_current$get('label')
+  if (!is.null(name)) {
+    dir.create(here::here("tests", "results"), showWarnings = FALSE)
+    res <- digest::digest(ans)
+    writeLines(res, here::here("tests", "results", name))
+  }
+  invisible(ans)
+}
 ```
 
 <!--# Observez les instructions ci-dessus, le code est placé dans une zone particulière que l'on nomme un morceau R ou "chunk" en anglais. Il n'est pas nécessaire de comprendre ces instructions pour l'instant, mais essayer quand même de deviner ce qu'elles font. Par exemple, la ligne avec read(...), "lire" en anglais, lit les données depuis le fichier "be_vaccine_covid.rds" qu'il va chercher dans le dossier "data". Vous apprendrez plus tard à écrire ces instructions vous-mêmes. Concentrez-vous sur la succession des zones de texte et des morceaux R. Vous pouvez exécuter les instructions dans la Console en cliquant sur le triangle vert en haut à droite du morceau. Vous pouvez ainsi exécuter les morceaux du document les uns après les autres dans l'ordre. -->
+
+```{r test_comment, fig.height=7}
+#knitr::opts_current$get('label')
+```
 
 # Introduction et but
 
@@ -72,11 +97,18 @@ vaccine %>.%
 tabularise(nb_brand)
 ```
 
-<!--% Interprétez ce tableau : proposez un élément supplémentaire en dessous du premier en remplaçant les ... dans la liste ci-dessous. Naturellement, vous devez avoir généré le tableau au préalable en cliquant qur le triangle vert en haut à droite du morceau R pour pouvoir faire cette interprétation. -->
+<!--% Après avoir généré le tableau ci-dessus en cliquant sur le triangle vert en haut à droite du morceau R juste au dessus, interprétez-le : proposez un premier élément en cochant la phrase correcte dans le morceau R ci-dessous. -->
+
+```{r brand_comment, output="asis"}
+# Cochez d'un 'x' dans les crochets [] la ou les phrases
+# correctes sans rien modifier d'autre dans ce morceau R
+select_answer(r"-{
+[] -   Le vaccin le moins utilisé est le Moderna.
+[] -   Le vaccin le moins utilisé est le Novavax.
+[] -   Le vaccin le moins utilisé est le Moderna Bivalent BA1.}-")
+```
 
 -   le vaccin le plus administré est le `r ffirst(nb_brand$brand)`.
-
--   ...
 
 ```{r brand_dose}
 #| tbl-cap: Répartition des vaccins en fonction du type de dose.
@@ -115,7 +147,7 @@ vaccine %>.%
 tabularise(brand_sex, auto.labs = FALSE)
 ```
 
-<!--% Interprétez ce nouveau tableau : complétez deux éléments, sous forme de liste des résultats relatifs à la répartition des vaccins administrés par genre ci-dessous. -->
+<!--% Interprétez ce nouveau tableau : complétez deux éléments, sous forme de liste Markdown des résultats relatifs à la répartition des vaccins administrés par genre ci-dessous (deux items). -->
 
 -   ...
 

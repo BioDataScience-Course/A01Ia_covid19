@@ -52,8 +52,9 @@ test_that("Les morceaux R attendus sont présents dans le document", {
 })
 
 test_that("Les commentaires sont complétés pour le tableau Vaccins par type", {
-  expect_false(rmd_select(vacc_ast, by_section("Types de vaccins *")) |>
-      as_document() |> grepl("-   ...", x = _) |> any())
+  expect_equal("61dd8618359e20b17310213e4d9501b9",
+    try(readLines(here::here("tests", "results", "brand_comment")),
+      silent = TRUE))
 
   # Vous devez compléter la liste d'observations sous le tableau
   # "Vaccins par type" dans vaccination_notebook.qmd. Si le test échoue, ce
@@ -62,7 +63,7 @@ test_that("Les commentaires sont complétés pour le tableau Vaccins par type", 
 
 test_that("Les commentaires sont complétés pour le tableau Vaccins par genre", {
   expect_false(rmd_select(vacc_ast, by_section("Différences homme-femme")) |>
-      as_document() |> grepl("-   ...", x = _) |> any())
+    as_document() |> grepl("-   ...", x = _) |> any())
 
   # Vous devez compléter la liste d'observations sous le tableau
   # "Vaccins par genre" dans vaccination_notebook.qmd. Si le test échoue,
@@ -71,7 +72,7 @@ test_that("Les commentaires sont complétés pour le tableau Vaccins par genre",
 
 test_that("Les commentaires sont complétés pour le graphique Rappels en fonction de l'âge", {
   expect_false(rmd_select(vacc_ast, by_section("Doses de rappel")) |>
-      as_document() |> grepl("-   ...", x = _) |> any())
+    as_document() |> grepl("-   ...", x = _) |> any())
 
   # Vous devez compléter la liste d'observations sous le graphique "Rappels 2 et
   # 3 en fonction de l'âge" dans vaccination_notebook.qmd. Si le test

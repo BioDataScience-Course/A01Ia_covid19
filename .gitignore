@@ -39,6 +39,9 @@ _bookdown_files/
 .quarto/
 _site/
 
+# Compilation results
+tests/results/
+
 # Knitr cache
 *_cache/
 /cache/
