@@ -1,6 +1,6 @@
 # Vérifications de doc/vaccination_notebook.qmd
 
-test_that("Le bloc-notes a-til été correctement compilé en un fichier final HTML ?", {
+test_that("Le bloc-notes a-t-il été correctement compilé en un fichier final HTML ?", {
   expect_true(file.exists("../../vaccination_notebook.html"))
   expect_true(file.exists("../../vaccination_notebook.html") &&
       file.mtime("../../vaccination_notebook.html") >=
