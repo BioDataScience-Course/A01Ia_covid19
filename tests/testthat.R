@@ -7,4 +7,5 @@ local_edition(3)
 library(parsermd)
 #SciViews::R(lang = "fr", silent = TRUE)
 
-test_dir("testthat", reporter = LocationReporter)
+source("test_functions.R")
+test_dir("testthat", reporter = sddReporter)

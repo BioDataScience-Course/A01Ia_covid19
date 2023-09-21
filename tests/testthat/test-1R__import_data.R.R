@@ -2,7 +2,7 @@
 
 vacc <- data.io::read("../../data/be_vaccine_covid.rds")
 
-test_that("Le jeu de données a été actualisé", {
+test_that("Le jeu de données est-il actualisé ?", {
   expect_gt(attr(vacc, "downloaded") |> as.Date(), as.Date("2022-09-22"))
 
   # Ce test détermine si le jeu de données data/bd_vaccine_covid.rds a été
@@ -10,7 +10,7 @@ test_that("Le jeu de données a été actualisé", {
   # exécuter l'ensemble du code de R/import_data.R pour actualiser ce fichier!
 })
 
-test_that("Le jeu de données est corrects", {
+test_that("Le jeu de données est-il correct ?", {
   expect_equal(names(vacc),
     c( "date", "region", "agegroup", "sex", "brand", "dose", "count"))
   expect_is(vacc, "data.frame") # Le jeu de données est un data frame
