@@ -6,12 +6,13 @@ Ce projet nécessite d'avoir assimilé l'ensemble des notions du premier module 
 
 ## Objectifs
 
-Ce projet est *individuel*, *cadré* et à durée limitée (2h). Il vise à vous familiariser avec les bases de l'utilisation de RStudio pour analyser des données. Vous allez :
+Ce projet est *individuel* et *cadré*. Il vise à vous familiariser avec les bases de l'utilisation de RStudio pour analyser des données. Vous allez :
 
--   cloner un projet hébergé sur GitHub
--   découvrir l'organisation des dossiers d'un projet scientifique
+-   cloner un projet hébergé dans GitHub pour l'utilisaer dans RStudio (Saturn Cloud)
+-   découvrir l'organisation conseillée des dossiers d'un projet dans RStudio
 -   découvrir le R Markdown et les documents Quarto
--   réaliser des modifications, des "commits", des "pulls" et des "pushes" pour synchroniser vos modifications avec le dépôt GitHub.
+-   apprendre à utiliser les tests diagnostics mis à votre disposition
+-   réaliser des modifications, des "commits", des "pulls" et des "pushes" pour synchroniser vos modifications avec le dépôt GitHub
 
 ## Consignes
 
@@ -35,7 +36,7 @@ Normalement, vous l'avez déjà utilisé pour créer ce projet. Voyez maintenant
 
 ### Structure du projet : dossiers et fichiers
 
-La structuration d'un projet dans GitHub en science des données respecte quelques conventions que vous devez appliquer. Des explications sur l'organisation d'un projet sont disponibles dans l'appendice [B.1.1.2 Organisation d'un projet](https://wp.sciviews.org/sdd-umons/?iframe=wp.sciviews.org/sdd-umons-2023/rs.html).
+Nous conseillons de structurer un projet d'analyse de données dans GitHub en rangeant les différents fichiers dans des sous-dossiers. Des explications sur l'organisation d'un projet sont disponibles dans l'appendice [B.1.1.2 Organisation d'un projet](https://wp.sciviews.org/sdd-umons/?iframe=wp.sciviews.org/sdd-umons-2023/rs.html) du cours en ligne.
 
 Dans RStudio, vous visualisez le contenu d'un projet et vous naviguez dans ses sous-dossiers à partir de l'onglet **Fichiers** qui se trouve dans le panneau en bas à droite de la fenêtre.
 
@@ -47,9 +48,9 @@ On y retrouve généralement :
 -   un fichier `DESCRIPTION` qui présente des métadonnées relatives au projet.
 -   dans le cas de RStudio, un fichier `.Rproj`, ici `A01Ia_covid19.Rproj` qui ouvre et paramètre le projet dans RStudio. Vous ne l'éditez jamais directement.
 -   un fichier `.gitignore` pour un dépôt git qui indique les fichiers qui ne doivent pas être repris dans les versions (fichiers temporaires, versions finales des rapports, par exemple). **Vous ne devez pas y toucher.** (si un fichier `.Rbuildignore` est aussi présent, ignorez-le également).
--   éventuellement, un dossier `data/` qui comprend les données comme par exemple, des fichiers au format CSV
--   en option, un dossier `R/` qui rassemble des fichiers composés d'une suite d'instructions pour effectuer des analyses, dont l'extension est `.R`. Ce sont les "scripts R" que vous allez découvrir tout au long du cours. Des explications complémentaires se trouvent dans l'appendice [B.1.2 Scripts R dans RStudio](https://wp.sciviews.org/sdd-umons/?iframe=wp.sciviews.org/sdd-umons-2023/rs.html).
--   éventuellement un dossier `tests/` auquel il ne faut rien toucher. Dans ce cas, une batterie de tests existent pour vérifier que vous avez réalisé tous les exercices demandés correctement.
+-   éventuellement, un dossier `data/` qui contient les données, par exemple, des fichiers au format CSV
+-   en option, un dossier `R/` qui rassemble des fichiers composés d'une suite d'instructions pour effectuer des analyses, dont l'extension est `.R`. Ce sont les "scripts R" que vous allez découvrir tout au long du cours. Des explications complémentaires se trouvent dans l'appendice [B.1.2 Scripts R dans RStudio](https://wp.sciviews.org/sdd-umons/?iframe=wp.sciviews.org/sdd-umons-2023/rs.html) du cours en ligne.
+-   éventuellement un dossier `tests/` auquel il ne faut rien toucher. Dans ce cas, une batterie de tests vous est fournie pour vous permettre de vérifier que vous avez réalisé tous les exercices demandés correctement.
 -   un dossier `figures` qui contient les images et schémas à inclure dans vos documents.
 -   enfin, un ou plusieurs fichiers `.qmd` qui permettent de créer vos bloc-notes, vos rapports ou vos présentations. Ce sont les fichiers clés du projet.
 
@@ -57,7 +58,7 @@ Explorez chaque sous-dossier et ouvrez les fichiers ayant une extension `.R` (sc
 
 ### Fichier R/import_data.R
 
-Ouvrez le fichier `R/import_data.R`. Il s'ouvre dans la **zone d'édition** qui se trouve dans le panneau en haut à gauche de la fenêtre. Vous n'allez rien modifier dans ce fichier, mais vous allez exécuter les différentes instructions qui s'y trouvent afin d'obtenir les données les plus récentes de vaccination depuis l'Internet et de préparer un nouveau tableau de données propre.
+Ouvrez le fichier `R/import_data.R`. Il s'ouvre dans la **zone d'édition** qui se trouve dans le panneau en haut à gauche de la fenêtre. Vous n'allez rien modifier dans ce fichier, mais vous allez exécuter les différentes instructions qui s'y trouvent afin d'obtenir les données les plus récentes de vaccination depuis Internet et de préparer un nouveau tableau de données propre.
 
 ![](figures/import_data.png)
 
@@ -83,7 +84,7 @@ Concentrez-vous maintenant sur le contenu de `vaccination_notebook.qmd`. Un docu
 -   les **zones de texte** mises en forme à l'aide du Markdown
 -   les **zones de code** R, encore appelées **morceaux** (ou **chunks** en anglais)
 
-Le préambule débute *toujours* par `---` et se termine *toujours* par `---`. On y indique des informations sous la forme `clé: valeur`. Il ne faut pas d'espace entre la clé et les deux points, par contre il faut un espace entre les deux points et la valeur qui peut être indiquée entre doubles guillemets s'il s'agit de texte. Dans le document, vous éditez l'entête YAML en y indiquant votre nom comme auteur.
+Le préambule débute *toujours* par `---` et se termine *toujours* par `---`. On y indique des informations sous la forme `clé: valeur`. Il ne faut pas d'espace entre la clé et les deux points, par contre il faut un espace entre les deux points et la valeur qui peut être indiquée entre doubles guillemets s'il s'agit de texte. Dans le document, vous éditez l'entête YAML en y indiquant votre nom d'auteur.
 
 Les zones de texte respectent les conventions du langage Markdown.
 
@@ -97,11 +98,11 @@ Les zones dédiées au code sont balisées par ```` ```{r} ```` pour des morceau
 
 Des commentaires sont mis à votre disposition dans le document Quarto. Vous verrez qu'il y a des commentaires distincts pour les consignes qui vous expliquent ce que vous devez faire. Les deux types (commentaire normaux et consignes) ne seront *pas* affichés dans le document final. **Vous ne devez pas y toucher.**
 
-Suivez maintenant les consignes du document. Générez les tableaux et graphiques et complétez le document là où c'est demandé (vous devez ajouter quelques interprétations dans le texte). Ensuite, compilez la version finale de votre bloc-notes (bouton **Rendu**). Si vous avez du mal avec le Markdown, retrouvez toutes les informations dans l'annexe [B.1.3 R Markdown/R Notebook](https://wp.sciviews.org/sdd-umons/?iframe=wp.sciviews.org/sdd-umons-2023/rs.html) et dans les aides-mémoires.
+Suivez maintenant les consignes du document. Générez les tableaux et graphiques et complétez le document là où c'est demandé (vous devez ajouter quelques interprétations dans le texte). Ensuite, compilez la version finale de votre bloc-notes (bouton **Rendu**). Si vous avez du mal avec le Markdown, retrouvez toutes les informations dans l'annexe [B.1.3 R Markdown/R Notebook](https://wp.sciviews.org/sdd-umons/?iframe=wp.sciviews.org/sdd-umons-2023/rs.html) du cours en ligne et dans les aides-mémoires.
 
 ### Vérifications
 
-Dans le cas où votre projet contient un sous-dossier `tests/` et qu'un onglet **Construire** est présent dans le panneau en haut à droite, comme ici, cela signifie qu'une batterie de tests est disponible pour vérifier que les exercices sont bien réalisés en tout ou en partie. Ouvrez cet onglet et cliquez sur le bouton **Construire tout**. Les tests indiquent `[success]` ou `[failure]`. Pour les tests ratés, vous pouvez cliquer sur le lien et le fichier de test s'ouvre à la ligne correspondante. **Ne modifiez rien** dans ce fichier, mais lisez le commentaire juste en dessous du test pour déterminer quoi faire pour corriger le problème. Lorsque vous pensez avoir corriger les problèmes, relancer les tests avec le bouton **Construire tout**. Recommencez jusqu'à avoir tous les tests qui marquent `[success]`.
+Dans le cas où votre projet contient un sous-dossier `tests/` et qu'un onglet **Construire** est présent dans le panneau en haut à droite, comme ici, cela signifie qu'une batterie de tests est disponible pour vérifier que les exercices sont bien réalisés en tout ou en partie. Ouvrez cet onglet et cliquez sur le bouton **Construire tout**. Les tests indiquent `[réussi]` si cela est correct ou `[échec]`/`[erreur]` en cas de réponse erronée ou d'exercice non réalisé. Pour les tests ratés, vous pouvez cliquer sur le lien et le fichier de test s'ouvre à la ligne correspondante. **Ne modifiez rien** dans ce fichier, mais lisez le commentaire juste en dessous du test pour déterminer quoi faire pour corriger le problème. Lorsque vous pensez avoir corrigé les problèmes, relancer les tests avec le bouton **Construire tout**. Recommencez jusqu'à avoir tous les tests `[réussi]`, ou en tous cas, le plus possible d'entre eux.
 
 Une fois que vous êtes satisfait de votre travail, vous pouvez passer à l'étape suivante qui consiste à synchroniser vos modifications avec GitHub.
 
@@ -113,15 +114,15 @@ Une fois tous vos fichiers sauvegardés, vous allez réaliser successivement un 
 
 ![](figures/git.png)
 
-Pour cela, vous aller ouvrir l'onglet **Git** qui se trouve dans le panneau supérieur droit dans votre fenêtre. Cliquez ensuite sur le bouton **Commit** dans sa barre d'outils. Une fenêtre s'ouvre qui vous rappelle les modifications réalisées dans chaque fichier du projet. Sélectionnez les fichiers que vous souhaitez reprendre dans votre commit (mettez une coche dans la case devant le nom du fichier ; la plupart du temps, on sélectionne tout). Vous devez ajouter un **message informatif** à ce commit dans la partie de droite. Le message doit présenter de manière claire et concise ce que vous avez réalisé. Par exemple : "Ajout de l'auteur et des commentaires des tables et graphiques." Cliquez enfin sur le bouton **Commit**.
+Pour cela, vous aller ouvrir l'onglet **Git** qui se trouve dans le panneau supérieur droit dans votre fenêtre. Cliquez ensuite sur le bouton **Commit** dans sa barre d'outils. Une fenêtre s'ouvre qui vous rappelle les modifications réalisées dans chaque fichier du projet. Sélectionnez les fichiers que vous souhaitez reprendre dans votre commit (mettez une coche dans la case devant le nom du fichier ; la plupart du temps, on sélectionne tout). Vous devez ajouter un **message informatif** à ce commit dans la partie de droite. Le message doit présenter de manière claire et concise ce que vous avez réalisé. Par exemple : "Ajout de l'auteur et commentaire du premier tableau." Cliquez enfin sur le bouton **Commit**.
 
-Vous venez de réaliser votre premier commit ! Ne fermez pas encore la fenêtre. Cliquez maintenant sur la flèche bleue afin de faire un "pull" (= récupération des modifications qui ont été faites dans le dépôt GitHub) puis cliquez sur la flèche verte afin de faire un "push" (= mise à jour de vos propres modifications dans le dépôt GitHub). Lisez bien les messages qui apparaissent. C'est là que les problèmes éventuels seront exposés, mais dans le cas présent, il ne devrait pas y en avoir. Vous pouvez fermer la fenêtre de commit à présent.
+Vous venez de réaliser votre premier commit ! Ne fermez pas encore la fenêtre. Cliquez maintenant sur la flèche bleue afin de faire un "pull" (= récupération des modifications qui ont été faites dans le dépôt GitHub) puis cliquez sur la flèche verte afin de faire un "push" (mise à jour de vos propres modifications dans le dépôt GitHub). Lisez bien les messages qui apparaissent. C'est là que les problèmes éventuels seront exposés, mais dans le cas présent, il ne devrait pas y en avoir. Vous pouvez fermer la fenêtre de commit à présent.
 
 En pratique, ne soyez pas avare de **commit-pull-push**. Vous pouvez en faire autant que vous voulez. Dès que vous avez franchi une étape importante, qu'un exercice est fini, qu'un fichier est édité, etc., faites un commit-pull-push. Pensez toujours à bien vérifier tout de même que RStudio est dans le **bon projet** et que vos fichiers sont bien **sauvegardés**.
 
-Rendez-vous maintenant sur GitHub afin de vérifier que vos modifications et votre commit sont bien répercutés dans le dépôt en ligne. Pour y accéder, retrouvez votre projet dans l'organisation GitHub <https://github.com/BioDataScience-Course> et ensuite, lisez ce qui apparaît en haut de la page : le texte de votre commit doit s'y trouver. Et si vous naviguez vers les fichiers qui ont été édités et que vous affichez leur contenu, vous devez y retrouver vos modifications.
+Rendez-vous maintenant dans GitHub afin de vérifier que vos modifications et votre commit sont bien répercutés dans le dépôt en ligne. Pour y accéder, retrouvez votre projet dans l'organisation GitHub <https://github.com/BioDataScience-Course> et ensuite, lisez ce qui apparaît en haut de la page : le texte de votre commit doit s'y trouver. Et si vous naviguez vers les fichiers qui ont été édités et que vous affichez leur contenu, vous devez y retrouver vos modifications.
 
-**Il est très important d'effectuer cette dernière vérification !** Chaque année, des étudiants perdent des points parce qu'il ont oublié de faire un dernier commit et/ou un push. Par conséquent, la fin de leur travail n'apparaît pas dans GitHub. Or la seule version que vos enseignants voient est celle sur GitHub. Votre travail local dans votre machine Saturn Cloud ne leur est pas accessible !
+**Il est très important d'effectuer cette dernière vérification !** Chaque année, des étudiants perdent des points parce qu'il ont oublié de faire un dernier commit et/ou un push. Par conséquent, la fin de leur travail n'apparaît pas dans GitHub. Or la seule version que vos enseignants voient est celle dans GitHub. Votre travail local dans votre machine Saturn Cloud ne leur est pas accessible !
 
 Une fois tout cela effectué, vous avez terminé et devriez être plus à l'aise dans l'utilisation de base de RStudio pour éditer des documents et les compiler en forme finale, ainsi que dans l'utilisation principale de git et GitHub via le clonage de projet, les commits, pulls et pushes.
 

@@ -1,3 +1,10 @@
+# History files
+.Rhistory
+.Rapp.history
+
+# Session Data files
+.RData
+
 # R files
 .Rhistory
 .Rapp.history
@@ -42,6 +49,9 @@ _site/
 # Compilation results
 tests/results/
 
+# Key
+tests/.key
+
 # Knitr cache
 *_cache/
 /cache/
@@ -61,3 +71,4 @@ www/.vscode/
 .DS_Store
 .Thumbs.db
 Thumbs.db
+core.*
